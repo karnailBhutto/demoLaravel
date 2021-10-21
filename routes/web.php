@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-	return view('welcome');
-});
+// Route::get('/', function () {
+// 	return view('welcome');
+// });
 
 Auth::routes();
 
@@ -34,6 +34,17 @@ Route::group(['middleware' => 'admin','middleware' => 'auth','prefix' => 'admin'
 	Route::resource('service', App\Http\Controllers\backend\ServiceController::class);
 
 });
+
+
+Route::get('/', [App\Http\Controllers\ProductController::class, 'index']);  
+
+Route::get('cart', [App\Http\Controllers\ProductController::class, 'cart'])->name('cart');
+
+Route::get('add-to-cart/{id}', [App\Http\Controllers\ProductController::class, 'addToCart'])->name('add.to.cart');
+
+Route::patch('update-cart', [App\Http\Controllers\ProductController::class, 'update'])->name('update.cart');
+
+Route::delete('remove-from-cart', [App\Http\Controllers\ProductController::class, 'remove'])->name('remove.from.cart');
 
 
 
